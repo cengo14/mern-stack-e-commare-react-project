@@ -1,0 +1,21 @@
+# Node.js bağımlılıkları
+node_modules/
+/.pnp
+.pnp.js
+/build
+# Ortam değişkenleri
+*.env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log dosyaları
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
