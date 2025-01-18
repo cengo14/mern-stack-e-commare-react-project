@@ -28,7 +28,6 @@ const Products = () => {
   };
 
   useEffect(() => {
-    console.log("Dispatch çalışıyor, keyword:", keyword);
     dispatch(getProducts({ keyword, price, rating, category }))
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

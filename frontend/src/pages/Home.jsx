@@ -10,7 +10,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((store) => store.products);
   const [randomProducts, setRandomProducts] = useState([]);
-  console.log(products);
 
   // Diziyi karıştıran bir fonksiyon
   const shuffleArray = (array) => {

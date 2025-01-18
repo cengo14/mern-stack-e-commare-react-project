@@ -5,17 +5,14 @@ import { CiSearch, CiUser } from "react-icons/ci";
 import { menuItems } from "../utils/constant";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { getKeyword } from "../redux/generalSlice";
-import { LuLogIn } from "react-icons/lu";
-import { MdOutlineAssignment } from "react-icons/md";
-
+import { getKeyword, setSignUp } from "../redux/generalSlice";
 import LeftMenu from "./../components/offcanvas/index";
 
 const Header = ({ user, isAuth }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const { cart, loading } = useSelector((store) => store.cart);
+  const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -26,6 +23,7 @@ const Header = ({ user, isAuth }) => {
   const logoutFunc = (name) => {
     if (name === "Çıkış") {
       localStorage.removeItem("token");
+      localStorage.removeItem("cart");
       setIsOpen(false);
       windows.location = "/";
     }
@@ -47,11 +45,11 @@ const Header = ({ user, isAuth }) => {
       </div>
       <div className="w-10/12 py-2 flex items-center justify-between mx-auto ">
         <div className="flex gap-2 items-center">
-          <button className="p-1 border border-gray-100 hover:border-gray-700 rounded-lg">
+          <button className="p-1 border border-gray-100 hover:border-gray-700 rounded-lg md:hidden">
             <RxHamburgerMenu
               onClick={() => setOpenMenu(!openMenu)}
               size={40}
-              className=" hover:text-gray-700 cursor-pointer md:hidden"
+              className=" hover:text-gray-700 cursor-pointer "
             />
           </button>
 
@@ -88,14 +86,14 @@ const Header = ({ user, isAuth }) => {
         </nav>
 
         <div className="flex gap-5 items-center">
-          <div className="flex items-center gap-2 border-2 rounded-full py-2 px-4 hover:shadow-md bg-white">
+          <div className="group flex items-center gap-2 border-2 rounded-full py-2 px-4 hover:shadow-md hover:bg-orange-600 bg-white">
             <input
               onChange={(e) => setKeyword(e.target.value)}
               value={keyword}
               placeholder="Ara"
-              className="bg-transparent outline-none  w-20 sm:w-40 md:w-24 lg:w-32"
+              className="bg-transparent  outline-none  w-20 sm:w-40 md:w-24 lg:w-32 placeholder:text-black group-hover:placeholder:text-white"
             />
-            <button onClick={handleClick}>
+            <button onClick={handleClick} className="group-hover:text-white">
               <CiSearch size={20} />
             </button>
           </div>
@@ -104,12 +102,14 @@ const Header = ({ user, isAuth }) => {
           {!isAuth || !user ? (
             <div className="hidden md:flex">
               <Link
+                onClick={() => dispatch(setSignUp(true))}
                 className="p-2 rounded-md hover:scale-105 transition-transform hover:bg-orange-600 hover:text-white"
                 to="/auth"
               >
                 Kayıt Ol
               </Link>
               <Link
+                onClick={() => dispatch(setSignUp(false))}
                 className="p-2 rounded-md hover:scale-105 transition-transform hover:bg-orange-600 hover:text-white"
                 to="/auth"
               >

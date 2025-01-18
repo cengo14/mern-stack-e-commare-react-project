@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const db = () => {
-    mongoose.connect("mongodb+srv://cengoaydemir14:aydemir14@cluster1.iibrv.mongodb.net/", {
+    mongoose.connect(process.env.MONGO_URI, {
 
     }).then(() => {
         console.log("Database connected successfully")

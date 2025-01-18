@@ -26,10 +26,7 @@ export const getRegister = createAsyncThunk(
 
             const user = await response.json();
 
-            // Token'ı localStorage'a kaydet
-            if (user.token) {
-                localStorage.setItem("token", user.token);  // token'ı localStorage'a kaydediyoruz
-            }
+
 
             return user;
         } catch (error) {

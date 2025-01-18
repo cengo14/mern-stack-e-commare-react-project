@@ -15,7 +15,7 @@ const Profile = () => {
   return (
     <PageContainer>
       <div className="border rounded-lg bg-gray-100 shadow hover:shadow-md min-h-[50vh] flex flex-col md:flex-row p-8">
-        <div className="flex flex-col md:flex-row items-center gap-5">
+        <div className="mx-auto flex flex-col md:flex-row items-center gap-5">
           <div>
             <img
               src={user.user.avatar.url}
@@ -52,7 +52,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div></div>
       </div>
     </PageContainer>
   );

@@ -9,9 +9,12 @@ const CartProduct = ({ item }) => {
   const dispatch = useDispatch();
   const total = item.price * item.quantity;
   const handleDelete = () => {
-    dispatch(removeFromCart(item.id))
-      .then(() => toast.info("Ürün sepetten kaldırıldı"))
-      .catch((err) => toast.error("Hata" + err));
+    try {
+      dispatch(removeFromCart(item.id));
+      toast.info("Ürün sepetten kaldırıldı");
+    } catch (error) {
+      toast.error("Ürün silinirken bir hata oluştu.");
+    }
   };
   return (
     <div className="w-full flex justify-between items-center border rounded-2xl px-5 bg-white shadow hover:shadow-md">

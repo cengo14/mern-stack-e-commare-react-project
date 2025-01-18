@@ -31,7 +31,7 @@ const App = () => {
     <BrowserRouter>
       <div className="min-h-screen flex flex-col">
         <Header user={user.user} isAuth={isAuth} />
-        <div className="flex-1 bg-orange-50 mt-[72px]">
+        <div className="flex-1 bg-gray-50 mt-[72px]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
@@ -45,7 +45,7 @@ const App = () => {
           </Routes>
         </div>
         <Footer />
-        <ToastContainer />
+        <ToastContainer position="bottom-right" />
       </div>
     </BrowserRouter>
   );

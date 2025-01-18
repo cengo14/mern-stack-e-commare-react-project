@@ -1,7 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setSignUp } from "../../redux/generalSlice";
 
 const LeftMenu = ({ openMenu, isAuth, close }) => {
+  const dispatch = useDispatch();
+  const login = () => {
+    dispatch(setSignUp(false));
+    close();
+  };
+  const signUp = () => {
+    dispatch(setSignUp(true));
+    close();
+  };
   return (
     <div
       className={`absolute top-0 z-40 p-4 h-screen overflow-y-auto w-64 bg-gray-100 backdrop-blur-sm ${
@@ -89,7 +100,7 @@ const LeftMenu = ({ openMenu, isAuth, close }) => {
           {!isAuth && (
             <li>
               <Link
-                onClick={close}
+                onClick={signUp}
                 to={"/auth"}
                 className="flex items-center p-2 rounded-md  transition-transform hover:bg-orange-600 hover:text-white group"
               >
@@ -111,7 +122,7 @@ const LeftMenu = ({ openMenu, isAuth, close }) => {
           {!isAuth && (
             <li>
               <Link
-                onClick={close}
+                onClick={login}
                 to={"/auth"}
                 className="flex items-center p-2 rounded-md  transition-transform hover:bg-orange-600 hover:text-white group"
               >

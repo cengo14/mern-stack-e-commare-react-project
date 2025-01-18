@@ -52,7 +52,7 @@ const register = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10);
 
         // Yeni kullanıcı oluştur
-        const newUser = new user({
+        const newUser = new User({
             name,
             email,
             password: passwordHash,

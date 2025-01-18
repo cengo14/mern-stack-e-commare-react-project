@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     keyword: "",
-    openModal: false
+    openModal: false,
+    signUp: true,
 
 };
 
@@ -21,10 +22,13 @@ const generalSlice = createSlice({
         setProductToUpdate: (state, action) => {
             state.productToUpdate = action.payload;
         },
+        setSignUp: (state, action) => {
+            state.signUp = action.payload
+        }
     },
 
 
 
 })
-export const { getKeyword, openModalFunc, setProductToUpdate } = generalSlice.actions;
+export const { getKeyword, openModalFunc, setProductToUpdate, setSignUp } = generalSlice.actions;
 export default generalSlice.reducer;

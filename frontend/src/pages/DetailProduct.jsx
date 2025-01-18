@@ -15,6 +15,7 @@ import { addToCart } from "../redux/cartSlice";
 import { toast } from "react-toastify";
 
 const DetailProduct = () => {
+  const { isAuth } = useSelector((store) => store.user);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector((store) => store.products);
@@ -46,14 +47,23 @@ const DetailProduct = () => {
     }
   };
   const addToBasket = () => {
-    const data = {
-      id: prodct._id,
-      quantity: quantity,
-      name: prodct.name,
-      price: prodct.price,
-      img: prodct.images[0].url,
-    };
-    dispatch(addToCart(data)).then(() => toast.success("Ürün sepete eklendi"));
+    if (!isAuth) {
+      toast.error("Ürünü sepete eklemek için yetkiniz yok");
+    } else {
+      try {
+        const data = {
+          id: prodct._id,
+          quantity: quantity,
+          name: prodct.name,
+          price: prodct.price,
+          img: prodct.images[0].url,
+        };
+        dispatch(addToCart(data));
+        toast.success("Ürün sepete eklendi");
+      } catch (error) {
+        toast.error("Ürün eklenirken bir hata oluştu.");
+      }
+    }
   };
 
   return (

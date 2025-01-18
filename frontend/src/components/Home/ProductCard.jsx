@@ -8,8 +8,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
 import { openModalFunc, setProductToUpdate } from "../../redux/generalSlice";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product, isAdmin, deleteProduct, edit }) => {
+  const { isAuth } = useSelector((store) => store.user);
   const settings = {
     infinite: true,
     speed: 500,
@@ -20,14 +22,24 @@ const ProductCard = ({ product, isAdmin, deleteProduct, edit }) => {
 
   const dispatch = useDispatch();
   const addToBasket = () => {
-    const data = {
-      id: product._id,
-      quantity: 1,
-      name: product.name,
-      price: product.price,
-      img: product.images[0].url,
-    };
-    dispatch(addToCart(data)).then(() => toast.success("Ürün sepete eklendi"));
+    if (!isAuth) {
+      toast.error("Ürünü sepete eklemeye yetkiniz yok");
+    } else {
+      try {
+        const data = {
+          id: product._id,
+          quantity: 1,
+          name: product.name,
+          price: product.price,
+          img: product.images[0].url,
+        };
+
+        dispatch(addToCart(data));
+        toast.success("Ürün sepete eklendi");
+      } catch (error) {
+        toast.error("Ürün eklenirken bir hata oluştu.");
+      }
+    }
   };
   const handleUpdateClick = () => {
     dispatch(setProductToUpdate(product)); // Güncellemek istediğiniz ürünü store'a gönderiyorsunuz

@@ -7,13 +7,13 @@ import { getLogin, getRegister } from "./../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/loading";
 import { Navigate } from "react-router-dom";
+import { setSignUp } from "../redux/generalSlice";
 
 const Auth = () => {
-  const [signUp, setSignUp] = useState(false);
-  const [login, setLogin] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isAuth, loading, error } = useSelector((store) => store.user);
+  const { isAuth, loading } = useSelector((store) => store.user);
+  const { signUp } = useSelector((store) => store.general);
 
   const [data, setData] = useState({
     name: "",
@@ -51,8 +51,7 @@ const Auth = () => {
         avatar: "",
       });
       setPreview("/user-avatar.png");
-      setSignUp(false);
-      setLogin(true);
+      dispatch(setSignUp(false));
     });
   };
   const loginFunc = () => {
@@ -101,7 +100,7 @@ const Auth = () => {
           placeholder="Şifre"
           id=""
         />
-        {login && (
+        {!signUp && (
           <Link to={"/forgot"} className="text-sm text-gray-500 text-end">
             Şifremi unuttum
           </Link>
@@ -132,7 +131,7 @@ const Auth = () => {
         <p className="text-sm">
           {signUp ? "Zaten bir hesabınız varsa " : "Henüz üyeliğiniz yoksa "}{" "}
           <span
-            onClick={() => setSignUp(!signUp)}
+            onClick={() => dispatch(setSignUp(!signUp))}
             className="text-red-500 font-semibold cursor-pointer"
           >
             {signUp ? "giriş yapın " : "kayıt olun"}
